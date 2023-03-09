@@ -3,16 +3,18 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "vite build --base=https://cdn.collectring.com/web/dist/",
     "serve": "vite preview"
   },
   "dependencies": {
     "@arco-design/web-react": "^2.45.1",
+    "@nodelib/fs.walk": "^1.2.8",
     "@reduxjs/toolkit": "^1.8.1",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "react-redux": "^8.0.1",
-    "react-router-dom": "^5.2.1"
+    "react-router-dom": "^5.2.1",
+    "react-scroll": "^1.8.9"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
