@@ -1,0 +1,38 @@
+.arco-select .arco-select-view{
+    background-color: transparent;
+} 
+
+.arco-select .arco-select-view:hover{
+    background-color: transparent;
+}
+
+.arco-select.arco-select-focused .arco-select-view{
+    background-color: transparent;
+    border-color: transparent;
+    color: rgb(var(--gray-3));;
+}
+
+
+.arco-select .arco-select-view{
+    color: rgb(var(--gray-3));;
+}
+
+.anchor-normal {
+    font-size: 14px;
+    padding: .5rem 1rem;
+    margin-right: .5rem;
+}
+
+.anchor-normal:hover{
+    background-color: rgb(var(--blue-9));
+    border-radius: 2rem;
+}
+
+.header-text {
+    color: rgb(var(--gray-3));
+}
+
+.header-text-dark {
+    color: rgb(var(--gray-9));
+}
+
