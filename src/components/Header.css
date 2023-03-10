@@ -9,13 +9,8 @@
 .arco-select.arco-select-focused .arco-select-view{
     background-color: transparent;
     border-color: transparent;
-    color: rgb(var(--gray-3));;
 }
 
-
-.arco-select .arco-select-view{
-    color: rgb(var(--gray-3));;
-}
 
 .anchor-normal {
     font-size: 14px;
@@ -26,13 +21,14 @@
 .anchor-normal:hover{
     background-color: rgb(var(--blue-9));
     border-radius: 2rem;
-}
-
-.header-text {
     color: rgb(var(--gray-3));
 }
 
+.header-text {
+    color: var(--color-text-1);
+}
+
 .header-text-dark {
-    color: rgb(var(--gray-9));
+    color: var(--color-text-1);
 }
 
