@@ -1,5 +1,6 @@
 .arco-select .arco-select-view{
     background-color: transparent;
+    font-weight: 500;
 } 
 
 .arco-select .arco-select-view:hover{
@@ -16,12 +17,27 @@
     font-size: 14px;
     padding: .5rem 1rem;
     margin-right: .5rem;
+    font-weight:500;
+    position: relative;
 }
 
 .anchor-normal:hover{
     background-color: rgb(var(--blue-9));
     border-radius: 2rem;
     color: rgb(var(--gray-3));
+}
+
+.tab-active {
+    color: rgb(var(--blue-8)) !important;
+}
+
+.tab-active::before {
+    content: '>';
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: move-right .5s linear;
 }
 
 .header-text {
@@ -32,3 +48,24 @@
     color: var(--color-text-1);
 }
 
+.header-bg {
+    background: transparent;
+    position: absolute;
+}
+
+.header-bg-dark {
+    background-color: rgba(255,255,255, .6);
+    backdrop-filter: blur(10px);
+    animation: move-down .5s ease-out; 
+    position: fixed;
+}
+
+@keyframes move-down {
+    from {transform: translateY(-100%); opacity: .3}
+    to {transform: translateY(0); opacity: 1}
+}
+
+@keyframes move-right {
+    from {transform: translate(-15px, -50%); opacity: .3 }
+    to {transform: translate(-50%, -50%); opacity: 1}
+}

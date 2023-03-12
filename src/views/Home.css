@@ -1,0 +1,36 @@
+.deco-swing
+{
+    top: 50%;
+    left: 10%;
+    animation: swing 5s linear 2s infinite alternate; 
+}
+
+.logo-swing
+{
+    animation: swing-logo 10s linear 2s infinite alternate;
+    /* transition: transform 1s; */
+}
+
+.letjoy-qr{
+    transition: transform .5s;
+}
+
+.letjoy-qr:hover {
+    transform: scale(1.5);
+}
+
+/* .logo-swing:hover {
+    transform-style: preserve-3d;
+    perspective: 300px;
+    transform: scale(0.9) rotateX(30deg) rotateY(30deg) translate(30px, -30px);
+} */
+
+@keyframes swing {
+    from {transform: rotate(-10deg)}
+    to {transform: rotate(10deg)}
+}
+
+@keyframes swing-logo {
+    from {transform: rotate(20deg)}
+    to {transform: rotate(5def)}
+}

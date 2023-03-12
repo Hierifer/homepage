@@ -8,37 +8,56 @@ import { Select, Message, Button, Space } from '@arco-design/web-react';
 
 
 interface Props {
-  dark: boolean
+  dark: boolean,
+  lang: string,
+  setLang: Function,
+  activeTab: string,
+  setActiveTab: Function
 }
 
-
 const Option = Select.Option;
-const options = ['中文', 'English'];
+const options = [
+  {text: '中文',  value: 'cn'}, 
+  {text: 'English', value: 'en'}
+];
 
 
-const Header: React.FC<Props> = ({ dark }) => {
+const Header: React.FC<Props> = ({ dark, lang, setLang, activeTab, setActiveTab }) => {
+  const l :{[key: string]: {[key:string]: string}} = {
+    'title' : {'cn': '克莱克特', 'en': 'Connect'},
+    'product' : {'cn': '产品', 'en': 'Product'},
+    'about' : {'cn': '关于我们', 'en': 'About'},
+    'career' : {'cn': '加入我们', 'en': 'Career'},
+  }
+
   const theme = () => {
     return dark? 'header-text' : 'header-text-dark'
   }
+  const theme_bg = () => {
+    return dark? 'header-bg' : 'header-bg-dark'
+  }
+  const theme_tab = (cur: string) => {
+    return cur === activeTab? 'tab-active' : ''
+  }
   return (
-    <header className="flex items-center w-full justify-center fixed text-xl z-50">
+    <header className={`flex items-center w-full justify-center text-xl z-50 ${theme_bg()}`} style={{mixBlendMode: 'revert'}}>
       <div className="max-w-6xl w-full flex justify-between p-6">
         <div className="flex items-center" style={{color: 'white'}}>
           <img src={logo} className="object-cover z-20 w-6 mr-4" alt="logo" />
-          <span style={{fontSize: '1rem'}} className={theme()}>克莱克特</span>
+          <span style={{fontSize: '1rem', fontWeight: 500}} className={theme()}>{l.title[lang]}</span>
         </div>
 
         <div>
           <Link activeClass="active" to="product" spy={true} smooth={true} duration={250}>
-            <a className={`anchor-normal ${theme()}`} href="#product">产品</a>
+            <a className={`anchor-normal ${theme()} ${theme_tab('product')}`} href="#product">{l.product[lang]}</a>
           </Link>
           
           <Link activeClass="active" to="about" spy={true} smooth={true} duration={250}>
-            <a className={`anchor-normal ${theme()}`} href='#about'>关于我们</a>
+            <a className={`anchor-normal ${theme()} ${theme_tab('about')}`} href='#about'>{l.about[lang]}</a>
           </Link>
           
           <Link activeClass="active" to="join" spy={true} smooth={true} duration={250}>
-          <a className={`anchor-normal ${theme()}`} href='#join'>加入我们</a>
+            <a className={`anchor-normal ${theme()} ${theme_tab('join')}`} href='#join'>{l.career[lang]}</a>
           </Link>
           
           <Select
@@ -47,15 +66,12 @@ const Header: React.FC<Props> = ({ dark }) => {
             style={{ width: 100 }}
             className={theme()}
             onChange={(value) =>
-              Message.info({
-                content: `You select ${value}.`,
-                showIcon: true,
-              })
+              setLang(value)
             }
           >
             {options.map((option, index) => (
-              <Option key={option} disabled={index === 3} value={option}>
-                {option}
+              <Option key={option.text} disabled={index === 3} value={option.value}>
+                {option.text}
               </Option>
             ))}
           </Select>
