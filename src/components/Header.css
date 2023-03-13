@@ -12,6 +12,18 @@
     border-color: transparent;
 }
 
+.arco-drawer-scroll{
+    background-color: black;
+}
+
+.item-normal {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    font-size: 16px;
+    color: white;
+}
 
 .anchor-normal {
     font-size: 14px;

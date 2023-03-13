@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState }  from 'react'
 import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 import logo from '../static/picture/logo.png'
 import './Header.css'
 
-import { Select, Message, Button, Space } from '@arco-design/web-react';
+import { Select,  Drawer, Message, Button, Space, Radio} from '@arco-design/web-react';
+import { IconMenu } from '@arco-design/web-react/icon';
 
 
 interface Props {
@@ -15,6 +16,7 @@ interface Props {
   setActiveTab: Function
 }
 
+const RadioGroup = Radio.Group;
 const Option = Select.Option;
 const options = [
   {text: '中文',  value: 'cn'}, 
@@ -29,7 +31,7 @@ const Header: React.FC<Props> = ({ dark, lang, setLang, activeTab, setActiveTab 
     'about' : {'cn': '关于我们', 'en': 'About'},
     'career' : {'cn': '加入我们', 'en': 'Career'},
   }
-
+  const [visible, setVisible] = useState(false);
   const theme = () => {
     return dark? 'header-text' : 'header-text-dark'
   }
@@ -39,6 +41,9 @@ const Header: React.FC<Props> = ({ dark, lang, setLang, activeTab, setActiveTab 
   const theme_tab = (cur: string) => {
     return cur === activeTab? 'tab-active' : ''
   }
+  const smallScreen = () => {
+    return window.innerWidth < 800
+  }
   return (
     <header className={`flex items-center w-full justify-center text-xl z-50 ${theme_bg()}`} style={{mixBlendMode: 'revert'}}>
       <div className="max-w-6xl w-full flex justify-between p-6">
@@ -47,7 +52,7 @@ const Header: React.FC<Props> = ({ dark, lang, setLang, activeTab, setActiveTab 
           <span style={{fontSize: '1rem', fontWeight: 500}} className={theme()}>{l.title[lang]}</span>
         </div>
 
-        <div>
+        <div style={{display: (!smallScreen()? 'display' : 'none')}}>
           <Link activeClass="active" to="product" spy={true} smooth={true} duration={250}>
             <a className={`anchor-normal ${theme()} ${theme_tab('product')}`} href="#product">{l.product[lang]}</a>
           </Link>
@@ -75,6 +80,44 @@ const Header: React.FC<Props> = ({ dark, lang, setLang, activeTab, setActiveTab 
               </Option>
             ))}
           </Select>
+        </div>
+
+        <div style={{display: (smallScreen()? 'display' : 'none')}}>
+          <Button 
+            type='text' 
+            onClick={() => {
+              setVisible(true);
+            }} 
+            icon={<IconMenu/>} 
+          />
+          <Drawer
+            placement="bottom"
+            visible={visible}
+            footer={null}
+            onCancel={() => {setVisible(false)}}
+            headerStyle={{display: 'none'}}
+            bodyStyle={{background: 'rgb(--blue-8)'}}
+            height={500}
+          >
+            <div className="flex flex-col">
+              <Link activeClass="active" to="product" spy={true} smooth={true} duration={250}>
+                <a className='relative' href="#product"><div className={`item-normal ${theme_tab('product')}`}>{l.product[lang]}</div></a>
+              </Link>
+              
+              <Link activeClass="active" to="about" spy={true} smooth={true} duration={250}>
+                <a className='relative' href='#about'><div className={`item-normal ${theme_tab('about')}`}>{l.about[lang]}</div></a>
+              </Link>
+              
+              <Link activeClass="active" to="join" spy={true} smooth={true} duration={250}>
+                <a className='relative' href='#join'><div className={`item-normal ${theme_tab('join')}`}>{l.career[lang]}</div></a>
+              </Link>
+
+              <RadioGroup defaultValue='cn' onChange={(value) => setLang(value)} style={{ marginTop: 20 }}>
+                <Button type="outline"><Radio value='cn'>中文</Radio></Button>
+                <Button type="outline" className="ml-2"><Radio value='en'>English</Radio></Button>
+              </RadioGroup>
+            </div>
+          </Drawer>
         </div>
       </div>
     </header>

@@ -46,6 +46,10 @@ const Home = () => {
   const [activeTab, setActiveTab] = useState('');
   const [lang, setLang] = useState('cn');
 
+  const smallScreen = () => {
+    return window.innerWidth < 800
+  }
+
   let foreHeight = 50;
 
   const storybook = () => {
@@ -165,16 +169,16 @@ const Home = () => {
           </div>
         </div>
         <Element name="product">
-          <div ref={productRef} className="w-screen h-screen flex justify-between" style={{transform: 'translateY(30%)'}}>
-            <div className="max-w-6xl w-full flex">
-              <div style={{width: '50%'}} className="h-full flex items-center justify-center">
+          <div ref={productRef} className="w-screen h-screen flex justify-center" style={{transform: 'translateY(30%)'}}>
+            <div className={`max-w-6xl w-full flex ${smallScreen()? 'flex-col': ''}`}>
+              <div style={{width: `${smallScreen()? '100%' : '50%'}`}} className="h-full flex items-center justify-center">
                 <div style={{width: '100%'}}  className="relative flex justify-center">
                   <div className="deco-swing absolute" style={{width:'30%', aspectRatio: '1', background: "#4141c9", borderRadius: "10%"}}></div>
                   <img src={letjoy} style={{width:'50%'}} className="object-cover z-20 logo-swing" alt="logo" />
                 </div>
               </div>
               
-              <div style={{width: '50%'}} className="h-full flex items-center justify-center">
+              <div style={{width: `${smallScreen()? '100%' : '50%'}`, padding: '25px'}} className="h-full flex items-center justify-center">
                 <div style={{width: '100%'}}  className="relative flex-col justify-center">
                   <p className="text-5xl pb-5" >{langPack.letjoy[lang]}</p>
                   <p className="text-xl">{langPack.ljdesc[lang]}</p>
