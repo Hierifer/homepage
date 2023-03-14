@@ -13,7 +13,7 @@ import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, 
 const langPack:{[key: string]: {[key:string]: string}} = {
   'st1' : {'cn': '人生如同繁星，精彩却又孤独', 'en': 'Life is great but transient'},
   'st2' : {'cn': '我们，观星者们', 'en': 'We, Soical Astronomer'},
-  'st3' : {'cn': '将发现你与他人更多的连接', 'en': 'will find more connect between you and others'},
+  'st3' : {'cn': '发现你与他人更多的连接', 'en': 'find more connect between you and others'},
   'letjoy' : {'cn': '来聚组局', 'en': 'Letjoy'},
   'ljdesc' : {'cn': '通过算法组局，精准匹配你的线下剧本杀玩伴', 'en': 'Match your boardgame player effectively with big-data'},
   'about' : {'cn': '关于我们', 'en': 'About us'},
@@ -51,6 +51,7 @@ const Home = () => {
   }
 
   let foreHeight = 50;
+  let ticking = false;
 
   const storybook = () => {
     let value = window.scrollY;
@@ -60,86 +61,107 @@ const Home = () => {
     let ah3 = 0
     ah1 = (h * foreHeight / 100) !== 0? h * foreHeight / 100 : 100 // stop animate
 
-    // 控制视差动画
-    if(value < ah1) {
-      let step = value / ah1
-      wholeRef.current!.style.position = 'fixed'
-      t1Ref.current!.style.opacity = `${1 - step}`
-      t2Ref.current!.style.opacity = '0'
-      t3Ref.current!.style.opacity = '0'
-      foreRef.current!.style.transform = `translate(-50%, 100%)`
-    } else if(value < 2 * ah1 && value >= ah1) {
-      let step = (value - ah1) / ah1
-      wholeRef.current!.style.position = 'fixed'
-      t1Ref.current!.style.opacity = '0'
-      t2Ref.current!.style.opacity = `${step}`
-      t3Ref.current!.style.opacity = '0'
-      foreRef.current!.style.transform = `translate(-50%, calc(100% - ${value - ah1}px ))`
-    } else if(value < 3 * ah1 && value >= 2 * ah1) {
-      let step = (value - ah1 * 2) / ah1
-      t1Ref.current!.style.opacity = '0'
-      t2Ref.current!.style.opacity = `${1 - step}`
-      t3Ref.current!.style.opacity = '0'
-      wholeRef.current!.style.position = 'fixed'
-      foreRef.current!.style.transform = `translate(-50%,  0)`
-    } else if(value < 4 * ah1 && value >= 3 * ah1) {
-      let step = (value - ah1 * 3) / ah1
-      t1Ref.current!.style.opacity = '0'
-      t2Ref.current!.style.opacity = '0'
-      t3Ref.current!.style.opacity = `${step}`
-      wholeRef.current!.style.position = 'fixed'
-      foreRef.current!.style.transform = `translate(-50%,  0)`
-    } else if(value < 5 * ah1 && value >= 4 * ah1){
-      t1Ref.current!.style.opacity = '0'
-      t2Ref.current!.style.opacity = '0'
-      t3Ref.current!.style.opacity = `1`
-      wholeRef.current!.style.position = 'fixed'
-      t3Ref.current!.style.transform = `translate(-50%, -50%)`
-      foreRef.current!.style.transform = `translate(-50%,  0)`
-    } else if(value < 6 * ah1 && value >= 5 * ah1){
-      let step = (value - ah1 * 5) / ah1
-      t1Ref.current!.style.opacity = '0'
-      t2Ref.current!.style.opacity = '0'
-      t3Ref.current!.style.opacity = `${1 - step}`
-      t3Ref.current!.style.transform = `translate(-50%, calc(-50% - ${(value - ah1 * 5)/2}px ))`
-      wholeRef.current!.style.position = 'absolute'
-      foreRef.current!.style.transform = `translate(-50%,  0)`
-    } 
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        // 控制视差动画
+        if(value < ah1) {
+          let step = value / ah1
+          wholeRef.current!.style.position = 'fixed'
+          t1Ref.current!.style.opacity = `${1 - step}`
+          t2Ref.current!.style.opacity = '0'
+          t3Ref.current!.style.opacity = '0'
+          foreRef.current!.style.transform = `translate(-50%, 100%)`
+          wholeRef.current!.style.transform = `translate(0, 0)`
+        } else if(value < 2 * ah1 && value >= ah1) {
+          let step = (value - ah1) / ah1
+          wholeRef.current!.style.position = 'fixed'
+          t1Ref.current!.style.opacity = '0'
+          t2Ref.current!.style.opacity = `${step}`
+          t3Ref.current!.style.opacity = '0'
+          foreRef.current!.style.transform = `translate(-50%, calc(100% - ${value - ah1}px ))`
+          wholeRef.current!.style.transform = `translate(0, 0)`
+        } else if(value < 3 * ah1 && value >= 2 * ah1) {
+          let step = (value - ah1 * 2) / ah1
+          t1Ref.current!.style.opacity = '0'
+          t2Ref.current!.style.opacity = `${1 - step}`
+          t3Ref.current!.style.opacity = '0'
+          wholeRef.current!.style.position = 'fixed'
+          foreRef.current!.style.transform = `translate(-50%,  0)`
+          wholeRef.current!.style.transform = `translate(0, 0)`
+        } else if(value < 4 * ah1 && value >= 3 * ah1) {
+          let step = (value - ah1 * 3) / ah1
+          t1Ref.current!.style.opacity = '0'
+          t2Ref.current!.style.opacity = '0'
+          t3Ref.current!.style.opacity = `${step}`
+          wholeRef.current!.style.position = 'fixed'
+          foreRef.current!.style.transform = `translate(-50%,  0)`
+          wholeRef.current!.style.transform = `translate(0, 0)`
+        } else if(value < 5 * ah1 && value >= 4 * ah1){
+          t1Ref.current!.style.opacity = '0'
+          t2Ref.current!.style.opacity = '0'
+          t3Ref.current!.style.opacity = `1`
+          wholeRef.current!.style.position = 'fixed'
+          t3Ref.current!.style.transform = `translate(-50%, -50%)`
+          wholeRef.current!.style.transform = `translate(0, 0)`
+          foreRef.current!.style.transform = `translate(-50%,  0)`
+        } else if(value < 7 * ah1 && value >= 5 * ah1){
+          let step = (value - ah1 * 5) / ah1
+          t1Ref.current!.style.opacity = '0'
+          t2Ref.current!.style.opacity = '0'
+          t3Ref.current!.style.opacity = `${1 - step}`
+          foreRef.current!.style.transform = `translate(-50%,  0)`
+          wholeRef.current!.style.transform = `translateY(${ah1*5-value}px)`
+        } else {
+          t1Ref.current!.style.opacity = '0'
+          t2Ref.current!.style.opacity = '0'
+          t3Ref.current!.style.opacity = `1`
+          t3Ref.current!.style.transform = `translate(-50%, -50%)`
+          foreRef.current!.style.transform = `translate(-50%,  calc(-50% + ${ah1 *5}))`
+          wholeRef.current!.style.transform = `translateY(-100%)`
+        }
 
-    // 控制 Header 展示
-    if(value < 3.5 * h){
-      // Header 使用浅色
-      document.getElementsByTagName('body')[0].style.setProperty('--gray-10', '229,230,235')
-      document.getElementsByTagName('body')[0].style.setProperty('--color-bg-popup', '39,46,59')
-      setScrollAnimating(true);
-    } else {
-      // Header 使用深色
-      document.getElementsByTagName('body')[0].style.setProperty('--gray-10', '39,46,59')
-      document.getElementsByTagName('body')[0].style.setProperty('--color-bg-popup', '229,230,235')
-      setScrollAnimating(false);
+        // 控制 Header 展示
+        if(value < 3.5 * h){
+          // Header 使用浅色
+          document.getElementsByTagName('body')[0].style.setProperty('--gray-10', '229,230,235')
+          document.getElementsByTagName('body')[0].style.setProperty('--color-bg-popup', '39,46,59')
+          document.getElementsByTagName('body')[0].style.setProperty('--color-fill-2', 'var(--color-neutral-8)')
+          setScrollAnimating(true);
+        } else {
+          // Header 使用深色
+          document.getElementsByTagName('body')[0].style.setProperty('--gray-10', '39,46,59')
+          document.getElementsByTagName('body')[0].style.setProperty('--color-bg-popup', '229,230,235')
+          document.getElementsByTagName('body')[0].style.setProperty('--color-fill-2', 'var(--color-neutral-2)')
+          setScrollAnimating(false);
+        }
+
+        // 控制出现动画
+        if(value >= (productRef.current!.offsetTop - 0.3 * h) && value < (productRef.current!.offsetTop + productRef.current!.offsetHeight)){
+          productRef.current!.style.transition = 'transform .5s'
+          productRef.current!.style.transform = 'translateY(0)'
+        } else if(value >= (aboutRef.current!.offsetTop - 0.3 * h) && value < (aboutRef.current!.offsetTop + aboutRef.current!.offsetHeight)){
+          aboutRef.current!.style.transition = 'transform .5s'
+          aboutRef.current!.style.transform = 'translateY(0)'
+        }
+
+        // 控制 Header Active Tab
+        if(value >= (productRef.current!.offsetTop) && value < (productRef.current!.offsetTop + productRef.current!.offsetHeight)){
+          setActiveTab('product')
+        } else if(value >= (aboutRef.current!.offsetTop) && value < (aboutRef.current!.offsetTop + aboutRef.current!.offsetHeight)){
+          setActiveTab('about')
+        } else if(value >= (joinRef.current!.offsetTop) && value < (joinRef.current!.offsetTop + joinRef.current!.offsetHeight)){
+          setActiveTab('join')
+        } else {
+          setActiveTab('')
+        }
+      
+        ticking = false;
+      });
+  
+      ticking = true;
     }
-
-    // 控制出现动画
-    if(value >= (productRef.current!.offsetTop - 0.3 * h) && value < (productRef.current!.offsetTop + productRef.current!.offsetHeight)){
-      productRef.current!.style.transition = 'transform .5s'
-      productRef.current!.style.transform = 'translateY(0)'
-    } else if(value >= (aboutRef.current!.offsetTop - 0.3 * h) && value < (aboutRef.current!.offsetTop + aboutRef.current!.offsetHeight)){
-      aboutRef.current!.style.transition = 'transform .5s'
-      aboutRef.current!.style.transform = 'translateY(0)'
-    }
-
-    // 控制 Header Active Tab
-    if(value >= (productRef.current!.offsetTop) && value < (productRef.current!.offsetTop + productRef.current!.offsetHeight)){
-      setActiveTab('product')
-    } else if(value >= (aboutRef.current!.offsetTop) && value < (aboutRef.current!.offsetTop + aboutRef.current!.offsetHeight)){
-      setActiveTab('about')
-    } else if(value >= (joinRef.current!.offsetTop) && value < (joinRef.current!.offsetTop + joinRef.current!.offsetHeight)){
-      setActiveTab('join')
-    } else {
-      setActiveTab('')
-    }
-
   }
+
 
   useEffect(() => {
     if(!init){

@@ -26,7 +26,7 @@ const options = [
 
 const Header: React.FC<Props> = ({ dark, lang, setLang, activeTab, setActiveTab }) => {
   const l :{[key: string]: {[key:string]: string}} = {
-    'title' : {'cn': '克莱克特', 'en': 'Connect'},
+    'title' : {'cn': '克莱克特', 'en': 'Collect'},
     'product' : {'cn': '产品', 'en': 'Product'},
     'about' : {'cn': '关于我们', 'en': 'About'},
     'career' : {'cn': '加入我们', 'en': 'Career'},
@@ -52,7 +52,7 @@ const Header: React.FC<Props> = ({ dark, lang, setLang, activeTab, setActiveTab 
           <span style={{fontSize: '1rem', fontWeight: 500}} className={theme()}>{l.title[lang]}</span>
         </div>
 
-        <div style={{display: (!smallScreen()? 'display' : 'none')}}>
+        <div style={{display: (smallScreen()? 'none' : 'display')}}>
           <Link activeClass="active" to="product" spy={true} smooth={true} duration={250}>
             <a className={`anchor-normal ${theme()} ${theme_tab('product')}`} href="#product">{l.product[lang]}</a>
           </Link>
@@ -88,7 +88,8 @@ const Header: React.FC<Props> = ({ dark, lang, setLang, activeTab, setActiveTab 
             onClick={() => {
               setVisible(true);
             }} 
-            icon={<IconMenu/>} 
+            icon={<IconMenu/>}
+            style={{color: dark? 'rgb(var(--gray-2))' : 'rgb(var(--gray-7))'}}
           />
           <Drawer
             placement="bottom"
@@ -113,8 +114,8 @@ const Header: React.FC<Props> = ({ dark, lang, setLang, activeTab, setActiveTab 
               </Link>
 
               <RadioGroup defaultValue='cn' onChange={(value) => setLang(value)} style={{ marginTop: 20 }}>
-                <Button type="outline"><Radio value='cn'>中文</Radio></Button>
-                <Button type="outline" className="ml-2"><Radio value='en'>English</Radio></Button>
+                <Button type="outline"><Radio value='cn'><span style={{color:'rgb(var(--gray-2))'}}>中文</span></Radio></Button>
+                <Button type="outline" className="ml-2"><Radio value='en'><span style={{color:'rgb(var(--gray-2))'}}>English</span></Radio></Button>
               </RadioGroup>
             </div>
           </Drawer>

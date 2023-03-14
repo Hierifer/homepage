@@ -1,6 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import "@arco-design/web-react/dist/css/arco.css";
+import 'animate.css';
 
 import Home from './views/Home'
 import About from './views/About'

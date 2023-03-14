@@ -36,7 +36,7 @@
 .anchor-normal:hover{
     background-color: rgb(var(--blue-9));
     border-radius: 2rem;
-    color: rgb(var(--gray-3));
+    color: rgb(var(--gray-3)) !important;
 }
 
 .tab-active {
@@ -46,7 +46,7 @@
 .tab-active::before {
     content: '>';
     position: absolute;
-    left: 5px;
+    left: 8px;
     top: 50%;
     transform: translate(-50%, -50%);
     animation: move-right .5s linear;

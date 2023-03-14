@@ -1,4 +1,6 @@
 import React from 'react'
+import { IconPhone } from '@arco-design/web-react/icon';
+
 
 const smallScreen = () => {
     return window.innerWidth < 800
@@ -6,8 +8,13 @@ const smallScreen = () => {
 
 const Footer = () => {
   return (
-    <footer className={`flex items-center w-full justify-center`}>
-        <div className={`max-w-6xl w-full flex justify-center p-6 ${smallScreen()? 'flex-col' : ''}`}>
+    <footer className={`flex flex-col items-center w-full justify-center my-3`}>
+        <div className={`max-w-6xl w-full flex justify-center px-6 ${smallScreen()? 'flex-col' : ''} mb-3`}>
+            <p className="pr-4">商务沟通：bd@bytedance.com | <IconPhone /> 86+18519805021</p>
+            <p>|</p>
+            <p className="px-4">加入我们：hr@bytedance.com</p>
+        </div>
+        <div className={`max-w-6xl w-full flex justify-center px-6 ${smallScreen()? 'flex-col' : ''}`}>
             <p className="pr-4">© 上海克莱克特网络科技有限公司 2021-2023 </p>
             <p>|</p>
             <p className="px-4">备案号 <a target="_blank" href="https://beian.miit.gov.cn/#/Integrated/index" style={{color: 'rgb(var(--blue-7))'}}>沪ICP备2021030818号-1</a> </p>
