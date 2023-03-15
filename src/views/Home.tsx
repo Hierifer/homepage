@@ -66,57 +66,50 @@ const Home = () => {
         // 控制视差动画
         if(value < ah1) {
           let step = value / ah1
-          wholeRef.current!.style.position = 'fixed'
           t1Ref.current!.style.opacity = `${1 - step}`
           t2Ref.current!.style.opacity = '0'
           t3Ref.current!.style.opacity = '0'
           foreRef.current!.style.transform = `translate(-50%, 100%)`
-          wholeRef.current!.style.transform = `translate(0, 0)`
+          wholeRef.current!.style.transform = `translateY(0)`
         } else if(value < 2 * ah1 && value >= ah1) {
           let step = (value - ah1) / ah1
-          wholeRef.current!.style.position = 'fixed'
           t1Ref.current!.style.opacity = '0'
           t2Ref.current!.style.opacity = `${step}`
           t3Ref.current!.style.opacity = '0'
           foreRef.current!.style.transform = `translate(-50%, calc(100% - ${value - ah1}px ))`
-          wholeRef.current!.style.transform = `translate(0, 0)`
+          wholeRef.current!.style.transform = `translateY(0)`
         } else if(value < 3 * ah1 && value >= 2 * ah1) {
           let step = (value - ah1 * 2) / ah1
           t1Ref.current!.style.opacity = '0'
           t2Ref.current!.style.opacity = `${1 - step}`
           t3Ref.current!.style.opacity = '0'
-          wholeRef.current!.style.position = 'fixed'
           foreRef.current!.style.transform = `translate(-50%,  0)`
-          wholeRef.current!.style.transform = `translate(0, 0)`
+          wholeRef.current!.style.transform = `translateY(0)`
         } else if(value < 4 * ah1 && value >= 3 * ah1) {
           let step = (value - ah1 * 3) / ah1
           t1Ref.current!.style.opacity = '0'
           t2Ref.current!.style.opacity = '0'
           t3Ref.current!.style.opacity = `${step}`
-          wholeRef.current!.style.position = 'fixed'
           foreRef.current!.style.transform = `translate(-50%,  0)`
-          wholeRef.current!.style.transform = `translate(0, 0)`
+          wholeRef.current!.style.transform = `translateY(0)`
         } else if(value < 5 * ah1 && value >= 4 * ah1){
           t1Ref.current!.style.opacity = '0'
           t2Ref.current!.style.opacity = '0'
           t3Ref.current!.style.opacity = `1`
-          wholeRef.current!.style.position = 'fixed'
-          t3Ref.current!.style.transform = `translate(-50%, -50%)`
-          wholeRef.current!.style.transform = `translate(0, 0)`
           foreRef.current!.style.transform = `translate(-50%,  0)`
+          wholeRef.current!.style.transform = `translateY(0)`
         } else if(value < 7 * ah1 && value >= 5 * ah1){
           let step = (value - ah1 * 5) / ah1
           t1Ref.current!.style.opacity = '0'
           t2Ref.current!.style.opacity = '0'
-          t3Ref.current!.style.opacity = `${1 - step}`
+          t3Ref.current!.style.opacity = `1`
           foreRef.current!.style.transform = `translate(-50%,  0)`
           wholeRef.current!.style.transform = `translateY(${ah1*5-value}px)`
         } else {
           t1Ref.current!.style.opacity = '0'
           t2Ref.current!.style.opacity = '0'
           t3Ref.current!.style.opacity = `1`
-          t3Ref.current!.style.transform = `translate(-50%, -50%)`
-          foreRef.current!.style.transform = `translate(-50%,  calc(-50% + ${ah1 *5}))`
+          foreRef.current!.style.transform = `translate(-50%,  0)`
           wholeRef.current!.style.transform = `translateY(-100%)`
         }
 
@@ -179,7 +172,7 @@ const Home = () => {
     <React.Fragment>
         <div ref={holdRef} className="relative overflow-hideen" style={{width: '100%', height: '350vh'}}>
           <Header dark={scrollAnimating} lang={lang} setLang={setLang} activeTab={activeTab} setActiveTab={setActiveTab}/>
-          <div ref={wholeRef} className="w-screen h-screen flex justify-center overflow-hidden bottom-0">
+          <div ref={wholeRef} className="w-screen h-screen flex justify-center overflow-hidden bottom-0 fixed">
             <div className="absolute w-full text-white" style={{zIndex: 20, top: '40%', left: '50%', transform: 'translate(-50%, -40%)', textAlign: 'center'}}>
               <p ref={t1Ref} className="absolute left-1/2 text-5xl opacity-100" style={{transform: 'translate(-50%, -50%)'}}>{langPack.st1[lang]}</p>
               <p ref={t2Ref} className="absolute left-1/2 text-5xl opacity-0" style={{transform: 'translate(-50%, -50%)'}}>{langPack.st2[lang]}</p>
