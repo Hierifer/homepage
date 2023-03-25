@@ -8,6 +8,7 @@ import scrollDown from '../static/animation/scroll-down-w.gif'
 import hiring from '../static/picture/hiring.png'
 import qr from '../static/picture/letjoy-qr.jpg'
 import './Home.css'
+import * as THREE from 'three';
 import { Link, DirectLink, Element, Events, animateScroll as scroll, scrollSpy, scroller } from 'react-scroll'
 
 const langPack:{[key: string]: {[key:string]: string}} = {
@@ -29,7 +30,6 @@ const langPack:{[key: string]: {[key:string]: string}} = {
 }
 
 const Home = () => {
-  let init = false
   const foreRef = useRef<HTMLDivElement>(null);
   const backRef = useRef<HTMLDivElement>(null);
   const wholeRef = useRef<HTMLDivElement>(null);
@@ -43,8 +43,12 @@ const Home = () => {
 
   // 视差动画存在视野
   const [scrollAnimating, setScrollAnimating] = useState(false);
+  const [init, setInit] = useState(false)
   const [activeTab, setActiveTab] = useState('');
   const [lang, setLang] = useState('cn');
+  const [cardMove, setCardMove] = useState(false);
+  const [pMove, setPMove] = useState(false);
+  const [aMove, setAMove] = useState(false);
 
   const smallScreen = () => {
     return window.innerWidth < 800
@@ -52,6 +56,43 @@ const Home = () => {
 
   let foreHeight = 50;
   let ticking = false;
+
+  const initThree = () => {
+    // const scene = new THREE.Scene(); 
+    // const camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 ); 
+    // const renderer = new THREE.WebGLRenderer({ antialias: true }); 
+    // renderer.setSize( window.innerWidth, window.innerHeight ); 
+    // document.getElementsByClassName("3back")[0].appendChild( renderer.domElement ); 
+
+    // const cbg = new THREE.BoxGeometry( 1, 1, 1 ); 
+    // const cbm = new THREE.MeshLambertMaterial( { color: 'blue' } ); 
+    
+    // const cng = new THREE.ConeGeometry( .5, 1, 32 );
+    // const cnm = new THREE.MeshLambertMaterial( { color: 'red' } ); 
+    // const light = new THREE.AmbientLight(0xFFFFFF, .4);
+    // const dlight = new THREE.DirectionalLight(0xFFFFFF, .5);
+    // dlight.position.set(10, 10, 0);
+    // dlight.target.position.set(-5, 0, 0);
+    // scene.add(light);
+    // scene.add(dlight);
+    // const cube = new THREE.Mesh( cbg, cbm );
+    // cube.position.set(-1, 1, 0);
+    // const cone = new THREE.Mesh(cng, cnm); 
+    // cone.position.set(1, 1, 0);
+    // cone.rotation.z = 0.1;
+    // scene.add( cube ); 
+    // scene.add( cone );
+    // camera.position.z = 5; 
+    // renderer.setClearColor( 0xffffff )
+    // function animate() { 
+    //   requestAnimationFrame( animate ); 
+    //   cube.rotation.x += 0.001;
+    //   cube.rotation.z += 0.001; 
+    //   cone.rotation.y += 0.01;
+    //   renderer.render( scene, camera ); 
+    // } 
+    // animate();
+  }
 
   const storybook = () => {
     let value = window.scrollY;
@@ -62,7 +103,7 @@ const Home = () => {
     ah1 = (h * foreHeight / 100) !== 0? h * foreHeight / 100 : 100 // stop animate
 
     if (!ticking) {
-      window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => { 
         // 控制视差动画
         if(value < ah1) {
           let step = value / ah1
@@ -99,7 +140,6 @@ const Home = () => {
           foreRef.current!.style.transform = `translate(-50%,  0)`
           wholeRef.current!.style.transform = `translateY(0)`
         } else if(value < 7 * ah1 && value >= 5 * ah1){
-          let step = (value - ah1 * 5) / ah1
           t1Ref.current!.style.opacity = '0'
           t2Ref.current!.style.opacity = '0'
           t3Ref.current!.style.opacity = `1`
@@ -128,15 +168,6 @@ const Home = () => {
           setScrollAnimating(false);
         }
 
-        // 控制出现动画
-        if(value >= (productRef.current!.offsetTop - 0.3 * h) && value < (productRef.current!.offsetTop + productRef.current!.offsetHeight)){
-          productRef.current!.style.transition = 'transform .5s'
-          productRef.current!.style.transform = 'translateY(0)'
-        } else if(value >= (aboutRef.current!.offsetTop - 0.3 * h) && value < (aboutRef.current!.offsetTop + aboutRef.current!.offsetHeight)){
-          aboutRef.current!.style.transition = 'transform .5s'
-          aboutRef.current!.style.transform = 'translateY(0)'
-        }
-
         // 控制 Header Active Tab
         if(value >= (productRef.current!.offsetTop) && value < (productRef.current!.offsetTop + productRef.current!.offsetHeight)){
           setActiveTab('product')
@@ -147,6 +178,11 @@ const Home = () => {
         } else {
           setActiveTab('')
         }
+
+        // 控制出现动画
+        setCardMove(value >= (joinRef.current!.offsetTop - 400))
+        setPMove(value >= (productRef.current!.offsetTop - 0.3 * h))
+        setAMove(value >= (aboutRef.current!.offsetTop - 0.3 * h))
       
         ticking = false;
       });
@@ -158,11 +194,14 @@ const Home = () => {
 
   useEffect(() => {
     if(!init){
+      console.log(init)
       storybook()
+      initThree()
       window.addEventListener('scroll', function(){
         storybook()
       })
-      init = true
+      console.log("init changed")
+      setInit(true)
     }
   });
 
@@ -172,7 +211,7 @@ const Home = () => {
     <React.Fragment>
         <div ref={holdRef} className="relative overflow-hideen" style={{width: '100%', height: '350vh'}}>
           <Header dark={scrollAnimating} lang={lang} setLang={setLang} activeTab={activeTab} setActiveTab={setActiveTab}/>
-          <div ref={wholeRef} className="w-screen h-screen flex justify-center overflow-hidden bottom-0 fixed">
+          <div ref={wholeRef} className="w-screen h-screen flex justify-center overflow-hidden bottom-0 fixed whole">
             <div className="absolute w-full text-white" style={{zIndex: 20, top: '40%', left: '50%', transform: 'translate(-50%, -40%)', textAlign: 'center'}}>
               <p ref={t1Ref} className="absolute left-1/2 text-5xl opacity-100" style={{transform: 'translate(-50%, -50%)'}}>{langPack.st1[lang]}</p>
               <p ref={t2Ref} className="absolute left-1/2 text-5xl opacity-0" style={{transform: 'translate(-50%, -50%)'}}>{langPack.st2[lang]}</p>
@@ -184,10 +223,11 @@ const Home = () => {
           </div>
         </div>
         <Element name="product">
-          <div ref={productRef} className="w-screen h-screen flex justify-center" style={{transform: 'translateY(30%)'}}>
+          <div ref={productRef} className={`w-screen h-screen flex justify-center moveable ${pMove? 'translate-y-0':'translate-y-1/4'}`}>
             <div className={`max-w-6xl w-full flex ${smallScreen()? 'flex-col': ''}`}>
               <div style={{width: `${smallScreen()? '100%' : '50%'}`}} className="h-full flex items-center justify-center">
                 <div style={{width: '100%'}}  className="relative flex justify-center">
+                  <div className="3back absolute"></div>
                   <div className="deco-swing absolute" style={{width:'30%', aspectRatio: '1', background: "#4141c9", borderRadius: "10%"}}></div>
                   <img src={letjoy} style={{width:'50%'}} className="object-cover z-20 logo-swing" alt="logo" />
                 </div>
@@ -195,7 +235,7 @@ const Home = () => {
               
               <div style={{width: `${smallScreen()? '100%' : '50%'}`, padding: '25px'}} className="h-full flex items-center justify-center">
                 <div style={{width: '100%'}}  className="relative flex-col justify-center">
-                  <p className="text-5xl pb-5" >{langPack.letjoy[lang]}</p>
+                  <p className="text-5xl pb-5 cursor-pointer" ><span className="letjoy">{langPack.letjoy[lang]}</span></p>
                   <p className="text-xl">{langPack.ljdesc[lang]}</p>
                   <p className="my-2 flex-col items-center">
                     <img src={qr} className="w-36 mt-12 letjoy-qr" />
@@ -207,9 +247,9 @@ const Home = () => {
         </Element>
 
         <Element name="about">
-          <div ref={aboutRef} className="w-screen h-screen flex justify-center" style={{transform: 'translateY(30%)'}}>
+          <div ref={aboutRef} className={`w-screen h-screen flex justify-center moveable ${aMove? 'translate-y-0':'translate-y-1/4'}`}>
             <div className="max-w-6xl w-full flex flex-col justify-center items-center p-5">
-              <div>
+              <div className="pb-10">
                 <p className="text-3xl my-5">{langPack.about[lang]}</p>
                 <p className="text-xl pb-5" style={{lineHeight: '2.5rem', color: 'rgb(var(--gray-7))'}}>
                   {langPack.about1[lang]}
@@ -231,19 +271,26 @@ const Home = () => {
                   {langPack.careerdesc[lang]}
                 </p>
               </div>
-
+      
               <div className="w-full">
                 <p className="text-2xl">
                   {langPack.position[lang]}
                 </p>
-
-                <div className="flex py-5">
-                  <div className="flex flex-col items-center relative overflow-hidden p-2 shadow" style={{border: '1px solid lightgray', width: '25%', minWidth: '200px', borderRadius: '20px', height: '70vh', maxHeight: '800px'}}>
-                    <p className="text-xl py-4">{langPack.devPositionTitle[lang]}</p>
-
-                    <p className="py-4">{langPack.devPositionDesc[lang]}</p>
-                    <img src={hiring} className="absolute bottom-0" style={{width: '120%'}}/>
-                  </div>
+                <div className="flex py-5 gap-3 overflow-auto">
+                  {
+                    [1,2,3].map((tmp) => {
+                      return (
+                          <div >
+                            <div className={`flex flex-col items-center relative overflow-hidden p-2 shadow cursor-pointer card ${cardMove? 'card-moved' : ''}`} style={{border: '1px solid lightgray', width: '25%', minWidth: '200px', borderRadius: '20px', height: '70vh', maxHeight: '800px', transition:`transform .5s ease-in-out ${.2 *tmp}s, opacity .5s ease-in-out ${.2 *tmp}s`}}>
+                              <p className="text-xl py-4">{langPack.devPositionTitle[lang]}</p>
+          
+                              <p className="py-4">{langPack.devPositionDesc[lang]}</p>
+                              <img src={hiring} className="absolute bottom-0" style={{width: '120%'}}/>
+                            </div>
+                          </div>
+                        )
+                    })
+                  }
                 </div>
               </div>
             </div>

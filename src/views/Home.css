@@ -5,6 +5,40 @@
     animation: swing 5s linear 2s infinite alternate; 
 }
 
+/* .whole
+{
+    transition: transform .5s;
+} */
+
+.letjoy
+{
+    background: linear-gradient(to right, rgb(246, 234, 220), rgb(205, 70, 242)) no-repeat right bottom;
+    background-size: 0 2px;
+    transition: background-size .5s;
+}
+.letjoy:hover{
+    background-position-x: left;
+    background-size: 100% 2px;
+}
+
+.moveable
+{
+    transition: transform .5s ease-in-out;
+}
+
+.card
+{
+    transform: translateX(100px);
+    opacity: 0;
+    
+}
+
+.card-moved
+{
+    transform: translateX(0);
+    opacity: 1;
+}
+
 .logo-swing
 {
     animation: swing-logo 10s linear 2s infinite alternate;

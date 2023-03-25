@@ -47,7 +47,7 @@ const Header: React.FC<Props> = ({ dark, lang, setLang, activeTab, setActiveTab 
   return (
     <header className={`flex items-center w-full justify-center text-xl z-50 ${theme_bg()}`} style={{mixBlendMode: 'revert'}}>
       <div className="max-w-6xl w-full flex justify-between p-6">
-        <div className="flex items-center" style={{color: 'white'}}>
+        <div className="flex items-center text-white">
           <img src={logo} className="object-cover z-20 w-6 mr-4" alt="logo" />
           <span style={{fontSize: '1rem', fontWeight: 500}} className={theme()}>{l.title[lang]}</span>
         </div>
