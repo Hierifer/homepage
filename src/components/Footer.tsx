@@ -10,9 +10,9 @@ const Footer = () => {
   return (
     <footer className={`flex flex-col items-center w-full justify-center my-3`}>
         <div className={`max-w-6xl w-full flex justify-center px-6 ${smallScreen()? 'flex-col' : ''} mb-3`}>
-            <p className="pr-4">商务沟通：bd@bytedance.com | <IconPhone /> 86+18519805021</p>
+            <p className="pr-4">商务沟通：bd@collectring.com | <IconPhone /> 86+18519805021</p>
             <p>|</p>
-            <p className="px-4">加入我们：hr@bytedance.com</p>
+            <p className="px-4">加入我们：hr@collectring.com</p>
         </div>
         <div className={`max-w-6xl w-full flex justify-center px-6 ${smallScreen()? 'flex-col' : ''}`}>
             <p className="pr-4">© 上海克莱克特网络科技有限公司 2021-2023 </p>
