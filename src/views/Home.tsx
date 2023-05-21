@@ -162,12 +162,10 @@ const Home = () => {
 
   useEffect(() => {
     if(!init){
-      console.log(init)
       storybook()
       window.addEventListener('scroll', function(){
         storybook()
       })
-      console.log("init changed")
       setInit(true)
     }
   });
