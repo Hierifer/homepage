@@ -4,9 +4,11 @@ import Footer from '../components/Footer'
 import s1 from '../static/picture/s1.svg'
 import s2 from '../static/picture/s2.svg'
 import letjoy from '../static/picture/letjoy-logo.svg'
+import mida from '../static/picture/mida-logo.svg'
 import scrollDown from '../static/animation/scroll-down-w.gif'
 import hiring from '../static/picture/hiring.png'
 import qr from '../static/picture/letjoy-qr.jpg'
+import mqr from '../static/picture/mida-qr.jpg'
 import './Home.css'
 import { Tabs, Timeline } from '@arco-design/web-react';
 const TabPane = Tabs.TabPane;
@@ -20,6 +22,8 @@ const langPack:{[key: string]: {[key:string]: string}} = {
   'st3' : {'cn': '发现你与他人更多的连接', 'en': 'find more connect between you and others'},
   'letjoy' : {'cn': '来聚组局', 'en': 'Letjoy'},
   'ljdesc' : {'cn': '通过算法组局，精准匹配你的线下剧本杀玩伴', 'en': 'Match your boardgame player effectively with big-data'},
+  'mida' : {'cn': '觅搭', 'en': 'Mida'},
+  'midadesc' : { 'cn': '#随时随地，精准找搭子', 'en': '#Finding the best partner anywhere'},
   'about' : {'cn': '关于我们', 'en': 'About us'},
   'about1' : {'cn': '克莱克特是一家具有算法基因的互联网公司。我们致力于应用数据和算法去发掘用户们潜在的社交需求，催化人与人之间化学键并释放其中的能量与价值。2023 年，我们上线第一款社交型产品「来聚组局」，其以前置需求匹配的交互模式给用户提供了全新的社交体验。', 
               'en': 'Connect is an \'Algorithm-based\' tech corp, which concentrates on exploring and mining the social relationship and communication with big-data and algorithm. In 2023, the first product, aka \'Letjoy\' is launched at WeChat miniprogram, that brings a new experience to the customers.'},
@@ -36,8 +40,9 @@ const langPack:{[key: string]: {[key:string]: string}} = {
   'story1': {'cn': '上海克莱克特创立','en': 'Collect is registered'},
   'story2': {'cn': '核心团队招募完毕', 'en': 'The core team is collected'},
   'story3': {'cn': '来聚组局上线微信小程序', 'en': 'Letjoy is debut on WeChat Miniprogram'},
+  'story4': {'cn': '觅搭 MVP 上线', 'en': 'Mida MVP launched WeChat Miniprogram'},
   'position' : {'cn': '工作岗位', 'en': 'Position'},
-  'devPositionTitle' : {'cn': '前端工程师', 'en': 'Engineer Aston'},
+  'devPositionTitle' : {'cn': '内容运营', 'en': 'Content operation'},
   'devPositionDesc' : {'cn': '描述描述', 'en': 'Desc Desc'},
 }
 
@@ -194,6 +199,27 @@ const Home = () => {
                 <div style={{width: '100%'}}  className="relative flex justify-center">
                   <div className="3back absolute"></div>
                   <div className="deco-swing absolute" style={{width:'30%', aspectRatio: '1', background: "#4141c9", borderRadius: "10%"}}></div>
+                  <img src={mida} style={{width:'50%'}} className="object-cover z-20 logo-swing" alt="logo" />
+                </div>
+              </div>
+              
+              <div style={{width: `${smallScreen()? '100%' : '50%'}`, padding: '25px'}} className="h-full flex items-center justify-center">
+                <div style={{width: '100%'}}  className="relative flex-col justify-center">
+                  <p className="text-5xl pb-5 cursor-pointer" ><span className="letjoy">{langPack.mida[lang]}</span></p>
+                  <p className="text-xl" style={{color: '#17a9b2'}}>{langPack.midadesc[lang]}</p>
+                  <p className="my-2 flex-col items-center">
+                    <img src={mqr} className="w-36 mt-12 letjoy-qr" />
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <div ref={productRef} className={`w-screen h-screen flex justify-center moveable ${pMove? 'translate-y-0':'translate-y-1/4'}`}>
+            <div className={`max-w-6xl w-full flex ${smallScreen()? 'flex-col': ''}`}>
+              <div style={{width: `${smallScreen()? '100%' : '50%'}`}} className="h-full flex items-center justify-center">
+                <div style={{width: '100%'}}  className="relative flex justify-center">
+                  <div className="3back absolute"></div>
+                  <div className="deco-swing absolute" style={{width:'30%', aspectRatio: '1', background: "#4141c9", borderRadius: "10%"}}></div>
                   <img src={letjoy} style={{width:'50%'}} className="object-cover z-20 logo-swing" alt="logo" />
                 </div>
               </div>
@@ -208,7 +234,7 @@ const Home = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </Element>
 
         <Element name="about">
@@ -246,6 +272,7 @@ const Home = () => {
                       <TimelineItem label='2022-10-10'><p className="text-xl">{langPack.story1[lang]}</p></TimelineItem>
                       <TimelineItem label='2022-11-30'><p className="text-xl">{langPack.story2[lang]}</p></TimelineItem>
                       <TimelineItem label='2023-01-01'><p className="text-xl">{langPack.story3[lang]}</p></TimelineItem>
+                      <TimelineItem label='2023-06-01'><p className="text-xl">{langPack.story4[lang]}</p></TimelineItem>
                     </Timeline>
                   </TabPane>
                 </Tabs>
@@ -268,7 +295,7 @@ const Home = () => {
                 </p>
                 <div className="flex py-5 gap-3 overflow-auto">
                   {
-                    [1,2,3].map((tmp) => {
+                    [1,2].map((tmp) => {
                       return (
                           <div >
                             <div className={`flex flex-col items-center relative overflow-hidden p-2 shadow cursor-pointer card ${cardMove? 'card-moved' : ''}`} style={{border: '1px solid lightgray', width: '25%', minWidth: '200px', borderRadius: '20px', height: '70vh', maxHeight: '800px', transition:`transform .5s ease-in-out ${.2 *tmp}s, opacity .5s ease-in-out ${.2 *tmp}s`}}>
