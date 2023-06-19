@@ -10,7 +10,7 @@ import hiring from '../static/picture/hiring.png'
 import qr from '../static/picture/letjoy-qr.jpg'
 import mqr from '../static/picture/mida-qr.jpg'
 import './Home.css'
-import { Tabs, Timeline } from '@arco-design/web-react';
+import { Tabs, Timeline, Carousel } from '@arco-design/web-react';
 const TabPane = Tabs.TabPane;
 const TimelineItem = Timeline.Item;
 
@@ -38,9 +38,9 @@ const langPack:{[key: string]: {[key:string]: string}} = {
   'value4': {'cn': '耐心聆听：把身段放低，以学生和朋友的身份去聆听和学习', 'en': 'Listen and be patient: Listen and learn from the other in the role of students and friends'},
   'stories': {'cn': '我们的故事', 'en': 'Stories'},
   'story1': {'cn': '上海克莱克特创立','en': 'Collect is registered'},
-  'story2': {'cn': '核心团队招募完毕', 'en': 'The core team is collected'},
-  'story3': {'cn': '来聚组局上线微信小程序', 'en': 'Letjoy is debut on WeChat Miniprogram'},
-  'story4': {'cn': '觅搭 MVP 上线', 'en': 'Mida MVP launched WeChat Miniprogram'},
+  'story2': {'cn': '核心团队招募完毕', 'en': 'The core team is builded'},
+  'story3': {'cn': '来聚组局上线微信小程序', 'en': 'Letjoy debuts on WeChat Miniprogram'},
+  'story4': {'cn': '觅搭 MVP 上线', 'en': 'Mida MVP launchs WeChat Miniprogram'},
   'position' : {'cn': '工作岗位', 'en': 'Position'},
   'devPositionTitle' : {'cn': '内容运营', 'en': 'Content operation'},
   'devPositionDesc' : {'cn': '描述描述', 'en': 'Desc Desc'},
@@ -194,47 +194,53 @@ const Home = () => {
         </div>
         <Element name="product">
           <div ref={productRef} className={`w-screen h-screen flex justify-center moveable ${pMove? 'translate-y-0':'translate-y-1/4'}`}>
-            <div className={`max-w-6xl w-full flex ${smallScreen()? 'flex-col': ''}`}>
-              <div style={{width: `${smallScreen()? '100%' : '50%'}`}} className="h-full flex items-center justify-center">
-                <div style={{width: '100%'}}  className="relative flex justify-center">
-                  <div className="3back absolute"></div>
-                  <div className="deco-swing absolute" style={{width:'30%', aspectRatio: '1', background: "#4141c9", borderRadius: "10%"}}></div>
-                  <img src={mida} style={{width:'50%'}} className="object-cover z-20 logo-swing" alt="logo" />
+            <Carousel
+              animation='slide'
+              showArrow='never'
+              indicatorPosition='outer'
+              style={{ width: '100%', height: '100%' }}
+            >
+              <div className={`w-full h-full flex ${smallScreen()? 'flex-col': ''}`}>
+                <div style={{width: `${smallScreen()? '100%' : '50%'}`}} className="h-full flex items-center justify-center">
+                  <div style={{width: '100%'}}  className="relative flex justify-center">
+                    <div className="3back absolute"></div>
+                    <div className="deco-swing absolute" style={{width:'30%', aspectRatio: '1', background: "#4141c9", borderRadius: "10%"}}></div>
+                    <img src={mida} style={{width:'50%'}} className="object-cover z-20 logo-swing" alt="logo" />
+                  </div>
+                </div>
+                
+                <div style={{width: `${smallScreen()? '100%' : '50%'}`, padding: '25px'}} className="h-full flex items-center justify-center">
+                  <div style={{width: '100%'}}  className="relative flex-col justify-center">
+                    <p className="text-5xl pb-5 cursor-pointer" ><span className="letjoy">{langPack.mida[lang]}</span></p>
+                    <p className="text-xl" style={{color: '#17a9b2'}}>{langPack.midadesc[lang]}</p>
+                    <p className="my-2 flex-col items-center">
+                      <img src={mqr} className="w-36 mt-12 letjoy-qr" />
+                    </p>
+                  </div>
                 </div>
               </div>
-              
-              <div style={{width: `${smallScreen()? '100%' : '50%'}`, padding: '25px'}} className="h-full flex items-center justify-center">
-                <div style={{width: '100%'}}  className="relative flex-col justify-center">
-                  <p className="text-5xl pb-5 cursor-pointer" ><span className="letjoy">{langPack.mida[lang]}</span></p>
-                  <p className="text-xl" style={{color: '#17a9b2'}}>{langPack.midadesc[lang]}</p>
-                  <p className="my-2 flex-col items-center">
-                    <img src={mqr} className="w-36 mt-12 letjoy-qr" />
-                  </p>
+
+              <div className={`w-full flex ${smallScreen()? 'flex-col': ''}`}>
+                <div style={{width: `${smallScreen()? '100%' : '50%'}`}} className="h-full flex items-center justify-center">
+                  <div style={{width: '100%'}}  className="relative flex justify-center">
+                    <div className="3back absolute"></div>
+                    <div className="deco-swing absolute" style={{width:'30%', aspectRatio: '1', background: "#4141c9", borderRadius: "10%"}}></div>
+                    <img src={letjoy} style={{width:'50%'}} className="object-cover z-20 logo-swing" alt="logo" />
+                  </div>
+                </div>
+                
+                <div style={{width: `${smallScreen()? '100%' : '50%'}`, padding: '25px'}} className="h-full flex items-center justify-center">
+                  <div style={{width: '100%'}}  className="relative flex-col justify-center">
+                    <p className="text-5xl pb-5 cursor-pointer" ><span className="letjoy">{langPack.letjoy[lang]}</span></p>
+                    <p className="text-xl">{langPack.ljdesc[lang]}</p>
+                    <p className="my-2 flex-col items-center">
+                      <img src={qr} className="w-36 mt-12 letjoy-qr" />
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Carousel>
           </div>
-          {/* <div ref={productRef} className={`w-screen h-screen flex justify-center moveable ${pMove? 'translate-y-0':'translate-y-1/4'}`}>
-            <div className={`max-w-6xl w-full flex ${smallScreen()? 'flex-col': ''}`}>
-              <div style={{width: `${smallScreen()? '100%' : '50%'}`}} className="h-full flex items-center justify-center">
-                <div style={{width: '100%'}}  className="relative flex justify-center">
-                  <div className="3back absolute"></div>
-                  <div className="deco-swing absolute" style={{width:'30%', aspectRatio: '1', background: "#4141c9", borderRadius: "10%"}}></div>
-                  <img src={letjoy} style={{width:'50%'}} className="object-cover z-20 logo-swing" alt="logo" />
-                </div>
-              </div>
-              
-              <div style={{width: `${smallScreen()? '100%' : '50%'}`, padding: '25px'}} className="h-full flex items-center justify-center">
-                <div style={{width: '100%'}}  className="relative flex-col justify-center">
-                  <p className="text-5xl pb-5 cursor-pointer" ><span className="letjoy">{langPack.letjoy[lang]}</span></p>
-                  <p className="text-xl">{langPack.ljdesc[lang]}</p>
-                  <p className="my-2 flex-col items-center">
-                    <img src={qr} className="w-36 mt-12 letjoy-qr" />
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div> */}
         </Element>
 
         <Element name="about">
@@ -242,7 +248,7 @@ const Home = () => {
             <div className="max-w-6xl w-full flex flex-col justify-center items-center p-5">
               <div className="pb-10">
                 <p className="text-3xl my-10">{langPack.about[lang]}</p>
-                <Tabs tabPosition='left' scrollPosition="center" type="rounded" size="large" style={{'height': '60%', 'minHeight': '400px'}}>
+                <Tabs scrollPosition="center" type="rounded" size="large" style={{'height': '60%', 'minHeight': '400px'}}>
                   <TabPane key='tab1' title={langPack.perspective[lang]}>
                     <p className="text-2xl mb-5">{langPack.perspective[lang]}</p>
                     <p className="text-xl pb-5" style={{lineHeight: '2.5rem', color: 'rgb(var(--gray-7))'}}>
