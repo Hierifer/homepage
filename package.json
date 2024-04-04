@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "vite build --base=https://cdn.collectring.com/web/dist/",
+    "build": "vite build",
     "serve": "vite preview"
   },
   "dependencies": {
